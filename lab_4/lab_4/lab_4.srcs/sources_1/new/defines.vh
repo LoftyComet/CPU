@@ -8,7 +8,7 @@
 `define EXE_LUI                6'b001111
 `define EXE_ORI                6'b001101
 
-`define EXE_NOP                8'b00000000
+`define EXE_NOP_OP             8'b00000000
 `define EXE_AND_OP             8'b00100100
 `define EXE_OR_OP              8'b00100101
 `define EXE_XOR_OP             8'b00100110

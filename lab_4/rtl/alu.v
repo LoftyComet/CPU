@@ -38,6 +38,12 @@ module alu(
 			`EXE_OR_OP: y <= a | b; //or
 			`EXE_XOR_OP: y <= a^b; //xor
 			`EXE_NOR_OP: y <= ~a^b; //nor
+			
+			`EXE_ANDI_OP: y <= a & b; //andi
+			`EXE_ORI_OP: y <= a | b; //ori
+			`EXE_XORI_OP: y <= a^b; //xori
+			`EXE_LUI_OP: y <= {b[31:16],{16{1'b0}}}; //lui
+			
 			default : y <= 32'b0;
 		endcase	
 	end
