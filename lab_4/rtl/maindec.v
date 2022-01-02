@@ -35,17 +35,29 @@ module maindec(
 	assign {regwrite,regdst,alusrc,branch,memwrite,memtoreg,jump} = controls;
 	always @(*) begin
 		case (op)
-			6'b000000:controls <= 7'b1100000;//R-TYRE
 			//I-TYPE
 			`EXE_ANDI:controls <= 7'b1010000;
 			`EXE_XORI:controls <= 7'b1010000;
 			`EXE_LUI:controls <= 7'b1010000;
 			`EXE_ORI:controls <= 7'b1010000; //立即数逻辑运算指令
-			
+	        
+	        `EXE_ADDI:controls <= 7'b1010000;
+	        `EXE_ADDIU:controls <= 7'b1010000;
+	        `EXE_SLTI:controls <= 7'b1010000;
+	        `EXE_SLTIU:controls <= 7'b1010000; // 立即数算术指令
+	        
+	        //R-TYRE
+	        `EXE_ADD:controls <= 7'b1100000;
+	        `EXE_ADDU:controls <= 7'b1100000;
+	        `EXE_SUB:controls <= 7'b1100000;
+	        `EXE_SUBU:controls <= 7'b1100000;
+	        `EXE_SLT:controls <= 7'b1100000;
+	        `EXE_SLTU:controls <= 7'b1100000; //R型算术指令
+
+
 			6'b100011:controls <= 7'b1010010;//LW
 			6'b101011:controls <= 7'b0010100;//SW
 			6'b000100:controls <= 7'b0001000;//BEQ
-			6'b001000:controls <= 7'b1010000;//ADDI
 			
 			6'b000010:controls <= 7'b0000001;//J
 			default:  controls <= 7'b0000000;//illegal op

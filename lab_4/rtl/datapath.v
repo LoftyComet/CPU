@@ -122,7 +122,7 @@ module datapath(
 	assign rsD = instrD[25:21];
 	assign rtD = instrD[20:16];
 	assign rdD = instrD[15:11];
-
+    assign sa = instrD[10:6];
 	//execute stage
 	floprc #(32) r1E(clk,rst,flushE,srcaD,srcaE);
 	floprc #(32) r2E(clk,rst,flushE,srcbD,srcbE);
@@ -134,7 +134,7 @@ module datapath(
 	mux3 #(32) forwardaemux(srcaE,resultW,aluoutM,forwardaE,srca2E);
 	mux3 #(32) forwardbemux(srcbE,resultW,aluoutM,forwardbE,srcb2E);
 	mux2 #(32) srcbmux(srcb2E,signimmE,alusrcE,srcb3E);
-	alu alu(srca2E,srcb3E,alucontrolE,aluoutE);
+	alu alu(srca2E,srcb3E,sa,alucontrolE,aluoutE);
 	mux2 #(5) wrmux(rtE,rdE,regdstE,writeregE);
 
 	//mem stage
@@ -146,5 +146,6 @@ module datapath(
 	flopr #(32) r1W(clk,rst,aluoutM,aluoutW);
 	flopr #(32) r2W(clk,rst,readdataM,readdataW);
 	flopr #(5) r3W(clk,rst,writeregM,writeregW);
+	hilo_reg hilo(clk,rst,hilo_writeW,hilo_iW[63:32],hilo_iW[31:0],hilo_oW[63:32],hilo_oW[31:0]);
 	mux2 #(32) resmux(aluoutW,readdataW,memtoregW,resultW);
 endmodule
