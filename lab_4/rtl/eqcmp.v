@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "defines.vh"
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -22,8 +23,16 @@
 
 module eqcmp(
 	input wire [31:0] a,b,
+	input wire [5:0] op,
 	output wire y
     );
 
-	assign y = (a == b) ? 1 : 0;
+	assign y = (op == `EXE_BEQ) ? (a == b):
+	           (op == `EXE_BNE) ? (a != b):
+	           (op == `EXE_BGEZ) ? ((a[31] == 1'b1) || (a == `ZeroWord)):
+	           (op == `EXE_BGTZ) ? ((a[31] == 1'b1) && (a != `ZeroWord)):
+	           (op == `EXE_BLEZ) ? ((a[31] == 1'b0) || (a == `ZeroWord)):
+	           (op == `EXE_BLTZ) ? ((a[31] == 1'b0) && (a != `ZeroWord)):1'b0;
+	           
+	           
 endmodule

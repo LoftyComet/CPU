@@ -27,7 +27,7 @@ module datapath(
 	input wire[31:0] instrF,
 	//decode stage
 	input wire pcsrcD,branchD,
-	input wire jumpD,
+	input wire jumpD,jarD,jrD,balD,
 	output wire equalD,
 	output wire[5:0] opD,functD,
 	//execute stage
@@ -49,9 +49,9 @@ module datapath(
 	//fetch stage
 	wire stallF;
 	//FD
-	wire [31:0] pcnextFD,pcnextbrFD,pcplus4F,pcbranchD;
+	wire [31:0] pcnextFD,pcnextbrFD,pcplus4F,pcbranchD,pcplus8F;
 	//decode stage
-	wire [31:0] pcplus4D,instrD;
+	wire [31:0] pcplus4D,instrD,pcplus8D;
 	wire forwardaD,forwardbD;
 	wire [4:0] rsD,rtD,rdD;
 	wire flushD,stallD; 
@@ -64,6 +64,7 @@ module datapath(
 	wire [31:0] signimmE;
 	wire [31:0] srcaE,srca2E,srcbE,srcb2E,srcb3E;
 	wire [31:0] aluoutE;
+	wire [31:0] pcplus8E;
 	//mem stage
 	wire [4:0] writeregM;
 	//writeback stage
@@ -107,8 +108,10 @@ module datapath(
 	//fetch stage logic
 	pc #(32) pcreg(clk,rst,~stallF,pcnextFD,pcF);
 	adder pcadd1(pcF,32'b100,pcplus4F);
+	adder pcadd2(pcF,32'b1000,pcplus8F);
 	//decode stage
 	flopenr #(32) r1D(clk,rst,~stallD,pcplus4F,pcplus4D);
+	flopenr #(32) r3D(clk,rst,~stallD,pcplus8F,pcplus8D);
 	flopenrc #(32) r2D(clk,rst,~stallD,flushD,instrF,instrD);
 	signext se(instrD[15:0],instrD[29:28],signimmD);
 	sl2 immsh(signimmD,signimmshD);
@@ -127,20 +130,22 @@ module datapath(
 	floprc #(32) r1E(clk,rst,flushE,srcaD,srcaE);
 	floprc #(32) r2E(clk,rst,flushE,srcbD,srcbE);
 	floprc #(32) r3E(clk,rst,flushE,signimmD,signimmE);
+	floprc #(32) r4E(clk,rst,flushE,pcplus8D,pcplus8E);
 	floprc #(5) r4E(clk,rst,flushE,rsD,rsE);
 	floprc #(5) r5E(clk,rst,flushE,rtD,rtE);
 	floprc #(5) r6E(clk,rst,flushE,rdD,rdE);
 
 	mux3 #(32) forwardaemux(srcaE,resultW,aluoutM,forwardaE,srca2E);
 	mux3 #(32) forwardbemux(srcbE,resultW,aluoutM,forwardbE,srcb2E);
-	mux2 #(32) srcbmux(srcb2E,signimmE,alusrcE,srcb3E);
-	alu alu(srca2E,srcb3E,sa,alucontrolE,aluoutE);
+	mux2 #(32) srcbmux(srcb2E,signimmE,alusrc2E,srcb3E);
 	mux2 #(5) wrmux(rtE,rdE,regdstE,writeregE);
-
+    mux2 #(5) wrmux2(writeregE,5'b11111,jarD|balD,writereg2E);
+    mux2 #(32) wrmux(aluoutE,pcplus8E,jarD|jrD|balD,alusrc2E);
+    alu alu(srca2E,srcb3E,sa,hilo_i,hilo_o,hilo_writeE,alucontrolE,aluoutE);
 	//mem stage
 	flopr #(32) r1M(clk,rst,srcb2E,writedataM);
 	flopr #(32) r2M(clk,rst,aluoutE,aluoutM);
-	flopr #(5) r3M(clk,rst,writeregE,writeregM);
+	flopr #(5) r3M(clk,rst,writereg2E,writeregM);
 
 	//writeback stage
 	flopr #(32) r1W(clk,rst,aluoutM,aluoutW);

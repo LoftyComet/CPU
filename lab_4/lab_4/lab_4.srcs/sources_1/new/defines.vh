@@ -125,3 +125,5 @@
 `define EXE_SW_OP       8'b11101011
 
 `define EXE_NOP_OP      8'b00000000
+
+`define ZeroWord        32'b00000000000000000000000000000000

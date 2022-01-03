@@ -28,38 +28,43 @@ module maindec(
 	output wire memtoreg,memwrite,
 	output wire branch,alusrc,
 	output wire regdst,regwrite,
-	output wire jump
+	output wire jump,jar,jr,bal
 //	output wire[1:0] aluop
     );
 	reg[8:0] controls;
-	assign {regwrite,regdst,alusrc,branch,memwrite,memtoreg,jump} = controls;
+	assign {regwrite,regdst,alusrc,branch,memwrite,memtoreg,jump,jar,jr,bal} = controls;
 	always @(*) begin
 		case (op)
 			//I-TYPE
-			`EXE_ANDI:controls <= 7'b1010000;
-			`EXE_XORI:controls <= 7'b1010000;
-			`EXE_LUI:controls <= 7'b1010000;
-			`EXE_ORI:controls <= 7'b1010000; //立即数逻辑运算指令
+			`EXE_ANDI:controls <= 10'b1010000;
+			`EXE_XORI:controls <= 10'b1010000;
+			`EXE_LUI:controls <= 10'b1010000;
+			`EXE_ORI:controls <= 10'b1010000; //立即数逻辑运算指令
 	        
-	        `EXE_ADDI:controls <= 7'b1010000;
-	        `EXE_ADDIU:controls <= 7'b1010000;
-	        `EXE_SLTI:controls <= 7'b1010000;
-	        `EXE_SLTIU:controls <= 7'b1010000; // 立即数算术指令
+	        `EXE_ADDI:controls <= 10'b1010000;
+	        `EXE_ADDIU:controls <= 10'b1010000;
+	        `EXE_SLTI:controls <= 10'b1010000;
+	        `EXE_SLTIU:controls <= 10'b1010000; // 立即数算术指令
 	        
 	        //R-TYRE
-	        `EXE_ADD:controls <= 7'b1100000;
-	        `EXE_ADDU:controls <= 7'b1100000;
-	        `EXE_SUB:controls <= 7'b1100000;
-	        `EXE_SUBU:controls <= 7'b1100000;
-	        `EXE_SLT:controls <= 7'b1100000;
-	        `EXE_SLTU:controls <= 7'b1100000; //R型算术指令
-
-
-			6'b100011:controls <= 7'b1010010;//LW
-			6'b101011:controls <= 7'b0010100;//SW
-			6'b000100:controls <= 7'b0001000;//BEQ
+	        `EXE_ADD:controls <= 10'b1100000;
+	        `EXE_ADDU:controls <= 10'b1100000;
+	        `EXE_SUB:controls <= 10'b1100000;
+	        `EXE_SUBU:controls <= 10'b1100000;
+	        `EXE_SLT:controls <= 10'b1100000;
+	        `EXE_SLTU:controls <= 10'b1100000; //R型算术指令
+			
+			//J-TYPE
+			`EXE_BEQ:controls <= 10'b0001000;//BEQ
+			`EXE_BNE:controls <= 10'b0001000;
+			`EXE_BGEZ:controls <= 10'b0001000;
+			`EXE_BGTZ:controls <= 10'b0001000;
+			`EXE_BLEZ:controls <= 10'b0001000;
+			`EXE_BLTZ:controls <= 10'b0001000;
 			
 			6'b000010:controls <= 7'b0000001;//J
+			6'b100011:controls <= 7'b1010010;//LW
+			6'b101011:controls <= 7'b0010100;//SW
 			default:  controls <= 7'b0000000;//illegal op
 		endcase
 	end
