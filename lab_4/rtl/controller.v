@@ -24,7 +24,7 @@ module controller(
 	input wire clk,rst,
 	//decode stage
 	input wire[5:0] opD,functD,
-	output wire pcsrcD,branchD,equalD,jumpD,jarD,jrD,balD,
+	output wire pcsrcD,branchD,equalD,jumpD,jalD,jrD,balD,
 	
 	//execute stage
 	input wire flushE,
@@ -42,19 +42,20 @@ module controller(
 	
 	//decode stage
 //	wire[1:0] aluopD;
-	wire memtoregD,memwriteD,alusrcD,
+	wire memtoregD,alusrcD,
 		regdstD,regwriteD;
+    wire memwriteD;
 	wire[7:0] alucontrolD;
 
 	//execute stage
-	wire memwriteE;
+	wire memwritE;
 
 	maindec md(
 		opD,
 		memtoregD,memwriteD,
 		branchD,alusrcD,
 		regdstD,regwriteD,
-		jumpD,jarD,jrD,balD
+		jumpD,jalD,jrD,balD
 //		aluopD
 		);
 	aludec ad(opD,functD,alucontrolD);

@@ -68,6 +68,10 @@ module alu(
             `EXE_SLTI_OP: begin y <= (a[31] == 1 && b[31] == 0)?32'h00000001:(a[31] == 0 && b[31] == 1)?32'h00000000:(a < b)?32'h00000001:32'h0000_0000; end
             `EXE_SLTIU_OP:begin y <= ({1'b0,a[31:0]} < {1'b0,b[31:0]})?32'h0000_0001:32'h0000_0000; end
             
+            `EXE_MTHI_OP:begin hilo_o <={a,hilo_i[31:0]}; hilo_writeE = 1'b1; end
+            `EXE_MTLO_OP:begin hilo_o <={hilo_i[63:32],a}; hilo_writeE = 1'b1; end
+            `EXE_MFHI_OP:y<=hilo_i[63:32];
+            `EXE_MFLO_OP:y<=hilo_i[31:0];
             `EXE_MULT_OP: begin prod <= {{32{a[31]}},a} *  {{32{b[31]}},b};hilo_o <=prod; hilo_writeE = 1'b1; end
             `EXE_MULTU_OP:begin prod <= {32'b0,a} *  {32'b0,b};hilo_o <=prod; hilo_writeE = 1'b1; end            
 		endcase	
