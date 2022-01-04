@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1'
+HD_PWD='D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

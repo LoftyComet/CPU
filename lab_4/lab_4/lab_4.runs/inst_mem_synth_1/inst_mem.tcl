@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.tcl"
+  variable script "D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.tcl"
   variable category "vivado_synth"
 }
 
@@ -79,17 +79,17 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.cache/wt [current_project]
-set_property parent.project_path D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.xpr [current_project]
+set_property webtalk.parent_dir D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.cache/wt [current_project]
+set_property parent.project_path D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.xpr [current_project]
 set_property XPM_LIBRARIES XPM_MEMORY [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.cache/ip [current_project]
+set_property ip_output_repo d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.xci
-set_property used_in_implementation false [get_files -all d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_ooc.xdc]
+read_ip -quiet D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.xci
+set_property used_in_implementation false [get_files -all d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -105,7 +105,7 @@ set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 OPTRACE "Configure IP Cache" START { }
 
-set cacheID [config_ip_cache -export -no_bom  -dir D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1 -new_name inst_mem -ip [get_ips inst_mem]]
+set cacheID [config_ip_cache -export -no_bom  -dir D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1 -new_name inst_mem -ip [get_ips inst_mem]]
 
 OPTRACE "Configure IP Cache" END { }
 if { $cacheID == "" } {
@@ -160,32 +160,32 @@ create_report "inst_mem_synth_1_synth_report_utilization_0" "report_utilization 
 OPTRACE "synth reports" END { }
 
 if { [catch {
-  file copy -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.dcp d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.dcp
+  file copy -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.dcp d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.dcp
 } _RESULT ] } { 
   send_msg_id runtcl-3 status "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
   error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
 }
 
 if { [catch {
-  write_verilog -force -mode synth_stub d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v
+  write_verilog -force -mode synth_stub d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode synth_stub d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
+  write_vhdl -force -mode synth_stub d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_verilog -force -mode funcsim d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.v
+  write_verilog -force -mode funcsim d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  write_vhdl -force -mode funcsim d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.vhdl
+  write_vhdl -force -mode funcsim d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
@@ -195,47 +195,47 @@ if { [catch {
 
 
 if { [catch {
-  file copy -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.dcp d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.dcp
+  file copy -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem.dcp d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem.dcp
 } _RESULT ] } { 
   send_msg_id runtcl-3 status "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
   error "ERROR: Unable to successfully create or copy the sub-design checkpoint file."
 }
 
 if { [catch {
-  file rename -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_stub.v d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v
+  file rename -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_stub.v d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a Verilog synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_stub.vhdl d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
+  file rename -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_stub.vhdl d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create a VHDL synthesis stub for the sub-design. This may lead to errors in top level synthesis of the design. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_sim_netlist.v d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.v
+  file rename -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_sim_netlist.v d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.v
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the Verilog functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 if { [catch {
-  file rename -force D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_sim_netlist.vhdl d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.vhdl
+  file rename -force D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.runs/inst_mem_synth_1/inst_mem_sim_netlist.vhdl d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_sim_netlist.vhdl
 } _RESULT ] } { 
   puts "CRITICAL WARNING: Unable to successfully create the VHDL functional simulation sub-design file. Post-Synthesis Functional Simulation with this file may not be possible or may give incorrect results. Error reported: $_RESULT"
 }
 
 }; # end if cacheID 
 
-if {[file isdir D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem]} {
+if {[file isdir D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem]} {
   catch { 
-    file copy -force d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem
+    file copy -force d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.v D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem
   }
 }
 
-if {[file isdir D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem]} {
+if {[file isdir D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem]} {
   catch { 
-    file copy -force d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl D:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem
+    file copy -force d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl D:/VIVADOproject/CPU/lab_4/lab_4/lab_4.ip_user_files/ip/inst_mem
   }
 }
 file delete __synthesis_is_running__

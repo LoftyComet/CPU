@@ -37,6 +37,9 @@ module alu(
 	reg [63:0] prod;//mult
 	always @(*) begin
 		case (op)
+		      
+		    `EXE_SW_OP | `EXE_SB_OP | `EXE_SH_OP | `EXE_LW_OP | `EXE_LB_OP | `EXE_LBU_OP | `EXE_LH_OP | `EXE_LHU_OP: y <= a + b;
+		    
 		     //logic inst
 			`EXE_AND_OP: y <= a & b; //and
 			`EXE_OR_OP: y <= a | b; //or

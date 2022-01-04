@@ -1,10 +1,10 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
--- Date        : Sat Jan  1 12:48:37 2022
+-- Date        : Tue Jan  4 14:52:38 2022
 -- Host        : DESKTOP-DQTA560 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
---               d:/VIVADOproject/CO-lab-material-CQU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
+--               d:/VIVADOproject/CPU/lab_4/lab_4/lab_4.srcs/sources_1/ip/inst_mem_1/inst_mem_stub.vhdl
 -- Design      : inst_mem
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7a100tfgg484-1

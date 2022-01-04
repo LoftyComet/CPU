@@ -26,8 +26,9 @@ module testbench();
 
 	wire[31:0] writedata,dataadr;
 	wire memwrite;
+	wire [3:0]sel;
 
-	top dut(clk,rst,writedata,dataadr,memwrite);
+	top dut(clk,rst,writedata,dataadr,memwrite,sel);
 
 	initial begin 
 		rst <= 1;
